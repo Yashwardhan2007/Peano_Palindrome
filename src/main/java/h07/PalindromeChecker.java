@@ -13,8 +13,20 @@ public class PalindromeChecker {
      */
     @StudentImplementationRequired("H7.2.1")
     public static boolean isPalindromeRecursive(int[] arr) {
-        return Student.crash(); //TODO: H7.2.1 - remove if implemented
+        //return Student.crash(); //TODO: H7.2.1 - remove if implemented
+        return isPalindromeRecursiveHelper(arr,0,arr.length-1);
     }
+
+    private static boolean isPalindromeRecursiveHelper(int[] arr, int start, int end){
+        if(start>end){
+            return true;
+        }
+        if(arr[start]!=arr[end]){
+            return false;
+        }
+        return isPalindromeRecursiveHelper(arr, start+1, end-1);
+    }
+
 
     /**
      * Iteratively checks if an array is a palindrome.
@@ -23,7 +35,18 @@ public class PalindromeChecker {
      */
     @StudentImplementationRequired("H7.2.2")
     public static boolean isPalindromeIterative(int[] arr) {
-        return Student.crash(); //TODO: H7.2.2 - remove if implemented
+        //return Student.crash(); //TODO: H7.2.2 - remove if implemented
+        int start =0;
+        int end = arr.length-1;
+        while(start<=end){
+            if(arr[start]!= arr[end]){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+
     }
 
     @DoNotTouch

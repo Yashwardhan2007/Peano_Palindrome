@@ -76,16 +76,30 @@ public class PeanoNumber {
      */
     @StudentImplementationRequired("H7.1.1")
     public int asIntRecursive() {
-        return Student.crash(); //TODO: H7.1.1 - remove if implemented
-    }
+        //return Student.crash(); //TODO: H7.1.1 - remove if implemented
+        PeanoValue type = getType();
+        if(type == PeanoValue.Zero){
+            return 0;
+        }else {
 
+            return 1+getPredecessor().asIntRecursive();
+        }
+
+    }
     /**
      * imperatively converts a peano number into an int
      * @return peano number as an int
      */
     @StudentImplementationRequired("H7.1.2")
     public int asIntIterative() {
-        return Student.crash(); //TODO: H7.1.2 - remove if implemented
+        //return Student.crash(); //TODO: H7.1.2 - remove if implemented
+        int result=0;
+        PeanoNumber current =this;
+        while (current.getType() != PeanoValue.Zero){
+            result++;
+            current = current.getPredecessor();
+        }
+        return  result;
     }
 
     /**
@@ -127,7 +141,12 @@ public class PeanoNumber {
      */
     @StudentImplementationRequired("H7.1.3")
     public PeanoNumber addRecursive(PeanoNumber peanoNumber) {
-        return Student.crash(); //TODO: H7.1.3 - remove if implemented
+        //return Student.crash(); //TODO: H7.1.3 - remove if implemented
+        if(peanoNumber.getType() == PeanoValue.Zero){
+            return this;
+        }
+        return new PeanoNumber(this.addRecursive(peanoNumber.getPredecessor()));
+
     }
 
     /**
@@ -137,7 +156,13 @@ public class PeanoNumber {
      */
     @StudentImplementationRequired("H7.1.4")
     public PeanoNumber addIterative(PeanoNumber peanoNumber) {
-        return Student.crash(); //TODO: H7.1.4 - remove if implemented
+        //return Student.crash(); //TODO: H7.1.4 - remove if implemented
+        PeanoNumber result = this;
+        while(peanoNumber.getType() != PeanoValue.Zero){
+            result = new PeanoNumber(result);
+            peanoNumber=peanoNumber.getPredecessor();
+        }
+        return result;
     }
 
     /**
@@ -147,7 +172,8 @@ public class PeanoNumber {
      */
     @StudentImplementationRequired("H7.1.5")
     public PeanoNumber multiplyRecursive(PeanoNumber peanoNumber) {
-        return Student.crash(); //TODO: H7.1.5 - remove if implemented
+        //return Student.crash(); //TODO: H7.1.5 - remove if implemented
+        return (peanoNumber.getType()==PeanoValue.Zero) ? new PeanoNumber() :this.addRecursive(this.multiplyRecursive(peanoNumber.getPredecessor()));
     }
 
     /**
@@ -157,7 +183,15 @@ public class PeanoNumber {
      */
     @StudentImplementationRequired("H7.1.6")
     public PeanoNumber multiplyIterative(PeanoNumber peanoNumber) {
-        return Student.crash(); //TODO: H7.1.6 - remove if implemented
+        //return Student.crash(); //TODO: H7.1.6 - remove if implemented
+        PeanoNumber result = new PeanoNumber();
+
+        while(peanoNumber.getType() != PeanoValue.Zero){
+            result = result.addIterative(this);
+            peanoNumber = peanoNumber.getPredecessor();
+        }
+        return  result;
+
     }
 
 }
